@@ -1,0 +1,5 @@
+fastapi==0.110.1
+pre-commit==3.6.0
+pydantic==2.6.4
+starlette==0.37.2
+uvicorn==0.29.0

@@ -1,0 +1,461 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: url("/static/images/ai_innovation.webp"), linear-gradient(to bottom, #9e94d7, #d2cee5);
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    font-size: 16px;
+    font-family: "Tietoevry-Regular", sans-serif;
+    color: rgb(83, 86, 90);
+}
+
+h1 {
+    font-size: 3em;
+    font-family: "Tietoevry-Thin", sans-serif;
+    font-weight: 100;
+    color: white;
+    margin: 15px 0;
+}
+
+h2 {
+    font-size: 2rem;
+    font-family: "Tietoevry-Regular", sans-serif;
+    font-weight: 300;
+    color: white;
+    margin: 12px 0;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-family: "Tietoevry-Regular", sans-serif;
+    font-weight: 300;
+    color: white;
+    margin: 10px 0;
+}
+
+p {
+    font-size: 1rem;
+    font-family: "Tietoevry-Regular", sans-serif;
+    font-weight: 400;
+}
+
+#tieto_logo {
+    margin: 22px auto;
+    display: block;
+    width: 220px;
+    height: 41px;
+}
+
+#container {
+    display: flex;
+    height: 100vh;
+    min-height: 700px;
+    overflow-y: hidden;
+    margin: 0;
+    padding: 30px 0 0 0;
+    align-items: center;
+}
+
+#column_left, #column_middle, #column_right {
+    height: 100%;
+    transition: width 0.5s;
+    margin: 0;
+    padding: 0;
+    flex-grow: 1;
+}
+
+#column_middle {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0));
+    padding: 35px 100px 25px 75px;
+}
+
+#top {
+    flex-grow: 1;
+    height: calc(100vh - 250px);
+}
+
+#top_content {
+    padding: 0;
+    margin: 0;
+}
+
+#chat_content {
+    overflow-y: auto;
+    height: calc(100vh - 440px);
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+#clear_chat_button {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    right: 10px;
+    float: right;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    opacity: 0.5;
+    user-select: none;
+    display: none;
+}
+
+#shortcutHelp {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: right;
+    font-size: 1em;
+    padding: 5px 8px 0 0;
+    font-style: italic;
+}
+
+#bottom {
+    height: 230px;
+    padding: 15px 0 0 0;
+}
+
+#chat_content::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+#chat_content::-webkit-scrollbar {
+    width: 12px;
+    border-radius: 10px;
+    background-color: rgba(245, 245, 245, 0.3);
+}
+
+#chat_content::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #b6afd9;
+}
+
+@media screen and (max-width: 768px) {
+    #column_middle {
+        width: 100%;
+        min-width: 768px;
+    }
+
+    #column_left, #column_right {
+        display: none;
+    }
+
+    .container {
+        overflow-y: auto;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    #column_middle {
+        width: 100%;
+    }
+
+    #column_left, #column_right {
+        display: none;
+    }
+
+    .container {
+        overflow-y: auto;
+    }
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1440px) {
+    #column_middle {
+        width: 100%;
+    }
+
+    #column_left, #column_right {
+        display: none;
+    }
+
+    .container {
+        overflow-y: auto;
+    }
+}
+
+@media screen and (min-width: 1441px) {
+    #column_middle {
+        width: 60%;
+    }
+
+    #column_left, #column_right {
+        width: 20%;
+    }
+
+    .container {
+        overflow-y: auto;
+    }
+}
+
+#chat_messages {
+    border-radius: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.25rem;
+    margin: 0 auto 0 auto;
+    max-width: 90%;
+    padding: 0.5rem 0 0 0;
+    position: relative;
+}
+
+#chat_messages > div {
+    border-radius: 0.5rem;
+    line-height: 1.25rem;
+    max-width: 90%;
+    /*padding: 0.5rem .875rem;*/
+    padding: 10px 14px 8px 14px;
+    position: relative;
+    word-wrap: break-word;
+    font-size: 1rem;
+    margin-top: 1em;
+    margin-bottom: 0;
+}
+
+#chat_messages div::before,
+#chat_messages div::after {
+    bottom: -0.1rem;
+    content: "";
+    height: 1rem;
+    position: absolute;
+}
+
+#chat_messages div.question {
+    align-items: flex-start;
+    background-color: #9c90dc;
+    color: #ffffff;
+    width: 100%;
+}
+
+#chat_messages div.answer {
+    align-self: flex-end;
+    background-color: #ffffff;
+    width: 100%;
+}
+
+#exampleQuestions {
+    user-select: none;
+}
+
+#exampleQuestions:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#exampleQuestions ul {
+    list-style-type: none;
+    padding-left: 0;
+    float: left;
+    font-style: italic;
+    font-size: 1em;
+    margin: 10px 0 0 0;
+}
+
+#exampleQuestions li {
+    margin-left: 0;
+    line-height: 22px;
+    cursor: pointer;
+}
+
+#exampleQuestions li img {
+    opacity: 0.5;
+    width: 14px;
+    height: 14px;
+    margin: 0 3px 0 5px;
+    vertical-align: middle;
+}
+
+
+#inputContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#questionTextarea {
+    font-size: 1rem;
+    font-family: "Tietoevry-Regular", sans-serif;
+    font-weight: 400;
+    padding: 10px 30px 10px 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    outline: none;
+    resize: none;
+    transition: border-color 0.3s ease;
+    overflow-y: hidden;
+    width: 100%;
+    height: 59px;
+    min-height: 40px;
+    max-height: 117px;
+}
+
+#questionTextarea:focus {
+    border-color: #211665;
+}
+
+#questionTextarea::placeholder {
+    color: #999999;
+}
+
+#questionLabel {
+    display: none;
+}
+
+#sendQuestionIcon {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    opacity: 0.5;
+    width: 24px;
+    height: 24px;
+    background-size: cover !important;
+    bottom: 10px;
+}
+
+#sendQuestionIcon.static {
+    background: url("/static/images/send.svg") no-repeat;
+}
+
+#sendQuestionIcon.processing {
+    background: url("/static/images/processing.svg") no-repeat;
+    animation: rotate 2s linear infinite;
+}
+
+
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+.feedback_icons {
+    text-align: right;
+    height: 16px;
+    user-select: none;
+}
+
+.feedback_icons div {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 0 0 0 6px;
+    cursor: pointer;
+    background-size: cover !important;
+}
+
+.feedback_icons .happy_icon_unselected {
+    background: url("/static/images/happy.svg") no-repeat;
+    opacity: 0.3;
+}
+
+.feedback_icons .less_happy_icon_unselected {
+    background: url("/static/images/less_happy.svg") no-repeat;
+    opacity: 0.3;
+}
+
+.feedback_icons .slightly_sad_icon_unselected {
+    background: url("/static/images/slightly_sad.svg") no-repeat;
+    opacity: 0.3;
+}
+
+.feedback_icons .sad_icon_unselected {
+    background: url("/static/images/sad.svg") no-repeat;
+    opacity: 0.3;
+}
+
+.feedback_icons .happy_icon_selected {
+    background: url("/static/images/happy.svg") no-repeat;
+    opacity: 1;
+}
+
+.feedback_icons .less_happy_icon_selected {
+    background: url("/static/images/less_happy.svg") no-repeat;
+    opacity: 1;
+}
+
+.feedback_icons .slightly_sad_icon_selected {
+    background: url("/static/images/slightly_sad.svg") no-repeat;
+    opacity: 1
+}
+
+.feedback_icons .sad_icon_selected {
+    background: url("/static/images/sad.svg") no-repeat;
+    opacity: 1;
+}
+
+#languageForm {
+    text-align: right;
+    padding: 0 0 2px 0;
+}
+
+#languageForm div {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+#languageForm div input, label {
+    cursor: pointer;
+}
+
+#languageForm div input {
+    margin: 0 0 0 -10px !important;
+    padding: 0 !important;
+}
+
+@font-face {
+    font-family: "Tietoevry-Regular";
+    src: url("/static/fonts/TietoevrySans1/TietoevrySans1-Regular.woff2") format("woff2"), url("/static/fonts/TietoevrySans1/TietoevrySans1-Regular.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Tietoevry-Thin";
+    src: url("/static/fonts/TietoevrySans1/TietoevrySans1-Thin.woff2") format("woff2"), url("/static/fonts/TietoevrySans1/TietoevrySans1-Thin.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Tietoevry-Light";
+    src: url("/static/fonts/TietoevrySans1/TietoevrySans1-Light.woff2") format("woff2"), url("/static/fonts/TietoevrySans1/TietoevrySans1-Light.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Tietoevry-MultiPixel-Font";
+    src: url("/static/fonts/TietoevrySans1/TietoEvryPixel-Multisize.woff2") format("woff2"), url("/static/fonts/TietoevrySans1/TietoEvryPixel-Multisize.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Tietoevry-Pixel-Font";
+    src: url("/static/fonts/TietoevrySans1/TietoEvryPixel-228.woff2") format("woff2"), url("/static/fonts/TietoevrySans1/TietoEvryPixel-228.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+.preload {
+    background-image: url("/static/images/processing.svg");
+}

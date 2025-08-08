@@ -1,0 +1,19 @@
+
+
+### Send question
+POST {{development.base_url}}/question
+Content-Type: application/json
+
+{
+  "question": "whats the time now?",
+  "language": "English"
+}
+
+### Send feedback
+POST {{development.base_url}}/feedback
+Content-Type: application/json
+
+{
+  "feedback": 1000,
+  "response": "Happy"
+}

@@ -1,0 +1,555 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #ffffff;
+    font-size: 16px;
+    font-family: "Tietoevry-Regular", sans-serif;
+    color: #282C2F;
+}
+
+h1 {
+    font-size: 32px;
+    font-family: "Tietoevry-Light", sans-serif;
+    font-weight: 100;
+    margin: 100px 0 0 0;
+}
+
+h2 {
+    font-size: 18px;
+    font-family: "Tietoevry-Regular", sans-serif;
+    font-weight: 300;
+    margin: 6px 0 0 0;
+    color: #64676A;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-family: "Tietoevry-Regular", sans-serif;
+    font-weight: 300;
+    margin: 10px 0;
+}
+
+p {
+    font-size: 1rem;
+    font-family: "Tietoevry-Regular", sans-serif;
+    font-weight: 400;
+}
+
+#tieto_logo {
+    margin: 24px;
+    display: block;
+}
+
+#container {
+    display: flex;
+    height: 100vh;
+    min-height: 700px;
+    overflow-y: hidden;
+    margin: 0;
+    padding: 0;
+    align-items: flex-start;
+}
+
+/*#column_left, #column_middle, #column_right {*/
+/*    height: 100%;*/
+/*    !*transition: width 0.5s;*!*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    !*flex-grow: 1;*!*/
+/*    !*flex: 1;*!*/
+/*}*/
+
+#column_left {
+    flex: 1;
+}
+
+#column_middle {
+    width: 880px !important;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+#column_right {
+    flex: 1;
+}
+
+#top {
+    flex-grow: 1;
+    height: calc(100vh - 150px);
+    width: 880px;
+}
+
+#top_content {
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+
+#chat_content {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: calc(100vh - 350px);
+    padding: 0;
+    margin: 0;
+    position: relative;
+    /*background: pink;*/
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*justify-content: flex-end;*/
+}
+
+#exampleQuestions {
+    box-sizing: border-box;
+    user-select: none;
+    background-image: url("/static/images/girl.svg");
+    background-position: center calc(50% - 115px);
+    background-repeat: no-repeat;
+    /*background: #9c90dc;*/
+}
+
+#exampleQuestions.open {
+    background-size: 30vh 30vh;
+    padding-top: calc(100vh - 550px);
+    height: calc(100vh - 350px);
+}
+
+@media screen and (max-height: 779px) {
+    #exampleQuestions.open {
+        background-size: 0 0;
+    }
+}
+
+@media screen and (min-height: 780px) and (max-height: 850px) {
+    #exampleQuestions.open {
+        background-size: 25vh 25vh;
+    }
+}
+
+#exampleQuestions.closed {
+    background-size: 0 0;
+    padding: 0;
+    heigh: auto;
+}
+
+#exampleQuestions:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#exampleQuestions button {
+    font-size: 16px;
+    align-items: flex-start;
+    float: left;
+    line-height: 26px;
+    cursor: pointer;
+    border-radius: 12px;
+    border: none;
+    box-sizing: border-box;
+    padding: 22px;
+    background-color: #f7eae4;
+    margin: 0 10px 0 0;
+    width: 200px;
+    height: 200px;
+    text-align: left;
+    vertical-align: top;
+    display: inline-flex; /* keep the inline nature of buttons */
+    align-items: flex-start; /* this is default */
+}
+
+#exampleQuestions button:last-child {
+    margin-right: 0;
+}
+
+#clear_chat_button {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    right: 10px;
+    float: right;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    opacity: 0.5;
+    user-select: none;
+    display: none;
+    margin: 10px 10px 0 0;
+}
+
+#shortcutHelp {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: right;
+    font-size: 1em;
+    padding: 5px 8px 0 0;
+    font-style: italic;
+}
+
+#bottom {
+    height: 150px;
+    padding: 15px 0 0 0;
+    width: 835px;
+}
+
+#chat_content::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+#chat_content::-webkit-scrollbar {
+    width: 12px;
+    border-radius: 10px;
+    background-color: rgba(245, 245, 245, 0.3);
+}
+
+#chat_content::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #bfbfbf;
+}
+
+/*@media screen and (max-width: 768px) {*/
+/*    #column_middle {*/
+/*        width: 100%;*/
+/*        min-width: 768px;*/
+/*    }*/
+
+/*    #column_left, #column_right {*/
+/*        display: none;*/
+/*    }*/
+
+/*    .container {*/
+/*        overflow-y: auto;*/
+/*    }*/
+/*}*/
+
+/*@media screen and (min-width: 769px) and (max-width: 1024px) {*/
+/*    #column_middle {*/
+/*        width: 100%;*/
+/*    }*/
+
+/*    #column_left, #column_right {*/
+/*        display: none;*/
+/*    }*/
+
+/*    .container {*/
+/*        overflow-y: auto;*/
+/*    }*/
+/*}*/
+
+/*@media screen and (min-width: 1025px) and (max-width: 1440px) {*/
+/*    #column_middle {*/
+/*        width: 100%;*/
+/*    }*/
+
+/*    #column_left, #column_right {*/
+/*        display: none;*/
+/*    }*/
+
+/*    .container {*/
+/*        overflow-y: auto;*/
+/*    }*/
+/*}*/
+
+/*@media screen and (min-width: 1441px) {*/
+/*    #column_middle {*/
+/*        width: 60%;*/
+/*    }*/
+
+/*    #column_left, #column_right {*/
+/*        width: 20%;*/
+/*    }*/
+
+/*    .container {*/
+/*        overflow-y: auto;*/
+/*    }*/
+/*}*/
+
+#chat_messages {
+    border-radius: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.25rem;
+    margin: 0 0 0 0;
+    width: 830px;
+    padding: 0 0 0 0;
+    position: relative;
+    /*border: 1px solid green;*/
+}
+
+#chat_messages > div {
+    line-height: 1.25rem;
+    /*max-width: 90%;*/
+    /*padding: 0.5rem .875rem;*/
+    position: relative;
+    word-wrap: break-word;
+    font-size: 16px;
+    margin-top: 12px;
+    margin-bottom: 0;
+    /*border: 1px solid red;*/
+}
+
+#chat_messages div::before,
+#chat_messages div::after {
+    bottom: -0.1rem;
+    content: "";
+    height: 1rem;
+    position: absolute;
+}
+
+#chat_messages div.question {
+    box-sizing: border-box;
+    align-items: flex-end;
+    /*width: 805px;*/
+    background-image: url("/static/images/girl.svg"); /* URL k vašemu SVG obrázku */
+    background-size: contain;
+    background-position: 12px 5px;
+    background-repeat: no-repeat;
+    background-size: 55px 55px;
+}
+
+#chat_messages div.question div {
+    border-radius: 12px;
+    padding: 22px;
+    margin: 0 0 0 80px;
+    box-sizing: border-box !important;
+    background-color: #F7EAE4;
+}
+
+#chat_messages div.answer {
+    box-sizing: border-box;
+    align-self: flex-end;
+    /*width: 725px;*/
+    width: 100%;
+    padding: 0 80px 0 0;
+}
+
+#chat_messages div.answer > div:first-child {
+    border-radius: 12px;
+    padding: 22px;
+    box-sizing: border-box;
+    background-color: #E0E1EB;
+    /*width: 740px;*/
+}
+
+#subTitle {
+    padding: 5px 0 0 0;
+}
+
+#inputContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#questionTextarea {
+    font-size: 1rem;
+    font-family: "Tietoevry-Regular", sans-serif;
+    font-weight: 400;
+    padding: 22px 140px 22px 22px;
+    border: 1px solid #DDDDDE;
+    border-radius: 12px;
+    outline: none;
+    resize: none;
+    transition: border-color 0.3s ease;
+    overflow-y: hidden;
+    width: 100%;
+    height: 59px;
+    min-height: 40px;
+    max-height: 117px;
+}
+
+/*#questionTextarea:focus {*/
+/*    border-color: #211665;*/
+/*}*/
+
+/*#questionTextarea::placeholder {*/
+/*    color: #999999;*/
+/*}*/
+
+#questionLabel {
+    display: none;
+}
+
+#sendQuestionIcon {
+    border-radius: 8px;
+    border: none;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    color: white;
+    cursor: pointer;
+    width: 175px;
+    box-sizing: border-box;
+    /*opacity: 0.5;*/
+    /*background-size: cover !important;*/
+    padding: 14px 50px;
+    font-size: 18px;
+    background: #280071 0% 0% no-repeat padding-box;
+}
+
+/*#sendQuestionIcon.static {*/
+/*    background: url("/static/images/send.svg") 0% 0% no-repeat, linear-gradient(180deg, #280071 0%, #280071 100%) 0% 0% no-repeat;*/
+/*    background-size: 30px 30px, auto;*/
+/*}*/
+
+
+/*#sendQuestionIcon.static {*/
+/*    padding-left: 40px;*/
+/*}*/
+
+#sendQuestionIcon.static::before {
+    content: "";
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    transform: translateY(-50%);
+    width: 25px;
+    height: 25px;
+    /*background: url("/static/images/send.svg") no-repeat;*/
+    /*background-size: contain;*/
+}
+
+
+#sendQuestionIcon.processing {
+    padding: 14px 50px 14px 20px;
+}
+
+#sendQuestionIcon.processing::before {
+    content: "";
+    position: absolute;
+    top: 15px;
+    right: 13px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background: url("/static/images/processing.svg") no-repeat;
+    background-size: contain;
+    animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.feedback_icons {
+    text-align: left;
+    height: 66px;
+    user-select: none;
+    padding: 10px 0 10px 13px;
+
+}
+
+.feedback_icons div {
+    display: inline-block;
+    /*width: 150px;*/
+    height: 26px;
+    line-height: 16px;
+    padding: 5px 10px 5px 30px;
+    margin: 0 0 0 6px;
+    cursor: pointer;
+    color: black;
+    /*background: silver!important;*/
+}
+
+.feedback_icons .happy_icon_unselected {
+    background: url("/static/images/happy.svg") no-repeat;
+    opacity: 0.5;
+}
+
+.feedback_icons .sad_icon_unselected {
+    background: url("/static/images/sad.svg") no-repeat;
+    opacity: 0.5;
+}
+
+.feedback_icons .happy_icon_selected {
+    background: url("/static/images/happy_selected.svg") no-repeat;
+    color: #1861f2;
+    opacity: 1;
+}
+
+.feedback_icons .sad_icon_selected {
+    background: url("/static/images/sad_selected.svg") no-repeat;
+    color: #1861f2;
+    opacity: 1;
+}
+
+#languageForm {
+    text-align: left;
+    padding: 0 0 2px 0;
+}
+
+#languageForm div {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+#languageForm div input, label {
+    cursor: pointer;
+}
+
+#languageForm div input {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#info {
+    float: right;
+    display: block;
+    margin: 0 !important;
+    text-align: right;
+}
+
+@font-face {
+    font-family: "Tietoevry-Regular";
+    src: url("/static/fonts/TietoevrySans1/TietoevrySans1-Regular.woff2") format("woff2"), url("/static/fonts/TietoevrySans1/TietoevrySans1-Regular.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Tietoevry-Thin";
+    src: url("/static/fonts/TietoevrySans1/TietoevrySans1-Thin.woff2") format("woff2"), url("/static/fonts/TietoevrySans1/TietoevrySans1-Thin.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Tietoevry-Light";
+    src: url("/static/fonts/TietoevrySans1/TietoevrySans1-Light.woff2") format("woff2"), url("/static/fonts/TietoevrySans1/TietoevrySans1-Light.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Tietoevry-MultiPixel-Font";
+    src: url("/static/fonts/TietoevrySans1/TietoEvryPixel-Multisize.woff2") format("woff2"), url("/static/fonts/TietoevrySans1/TietoEvryPixel-Multisize.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Tietoevry-Pixel-Font";
+    src: url("/static/fonts/TietoevrySans1/TietoEvryPixel-228.woff2") format("woff2"), url("/static/fonts/TietoevrySans1/TietoEvryPixel-228.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+.preload {
+    background-image: url("/static/images/processing.svg");
+}

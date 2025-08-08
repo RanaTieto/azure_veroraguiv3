@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tietoevry</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="icon" type="image/png" href="/static/images/favicon.png"/>
+    <script src="/static/scripts/app.js"></script>
+</head>
+<body>
+
+<div class="preload"></div>
+
+<div id="container">
+    <div id="column_left">
+        <a id="tieto_logo" href="https://www.tietoevry.com" target="_blank">
+            <img src="/static/images/tietoevry_logo_blue.svg" width="140" height="24" alt="TietoEvry"/>
+        </a>
+    </div>
+    <div id="column_middle">
+        <div id="top">
+            <div id="top_content">
+                <h1 id="heading"></h1>
+                <h2 id="subTitle"></h2>
+            </div>
+            <div id="chat_content">
+                <div id="exampleQuestions" class="open">
+                    <div id="finnishExampleQuestions">
+                        <button language="Finnish">Kuinka tilata verokortti?</button>
+                        <button language="Finnish">Kuinka ilmoittaa vuokratulot veroilmoituksessa?</button>
+                        <button language="Finnish">Kuinka laskea käytetyn ajoneuvon vero?</button>
+                        <button language="Finnish">Kuinka tehdä veroilmoitus, jos omistat metsän yhdessä puolisosi kanssa?</button>
+                    </div>
+                    <div id="swedishExampleQuestions">
+                        <button language="Swedish">Hur beställer man ett skattekort?</button>
+                        <button language="Swedish">Hur deklarerar du hyresintäkter i din deklaration?</button>
+                        <button language="Swedish">Hur beräknar man skatt på begagnat fordon?</button>
+                        <button language="Swedish">Hur gör man deklaration om man äger skog tillsammans med sin make?</button>
+                    </div>
+                    <div id="englishExampleQuestions">
+                        <button language="English">How to order a tax card?</button>
+                        <button language="English">How to declare rental income in your tax return?</button>
+                        <button language="English">How to calculate Tax on used vehicle?</button>
+                        <button language="English">How to file a tax return if you own a forest together with your spouse?</button>
+                    </div>
+                </div>
+                <img id="clear_chat_button" src="/static/images/clear.svg" width="24" height="24" alt="Clear chat">
+                <div id="chat_messages">
+                </div>
+            </div>
+        </div>
+        <div id="bottom">
+            <div id="inputContainer">
+                <form id="languageForm">
+                    <div class="radioGroup">
+                        <input type="radio" id="finnishRadio" name="language" value="finnish" checked>
+                        <label for="finnishRadio">Finnish</label>
+                    </div>
+
+                    <div class="radioGroup">
+                        <input type="radio" id="swedishRadio" name="language" value="swedish">
+                        <label for="swedishRadio">Swedish</label>
+                    </div>
+                    <div class="radioGroup">
+                        <input type="radio" id="englishRadio" name="language" value="english">
+                        <label for="englishRadio">English</label>
+                    </div>
+                    <div id="info"></div>
+                </form>
+                <label for="questionTextarea" id="questionLabel">Enter text:</label>
+                <textarea id="questionTextarea"></textarea>
+                <button id="sendQuestionIcon" class="static"></button>
+            </div>
+        </div>
+    </div>
+    <div id="column_right"></div>
+</div>
+
+</body>
+</html>
