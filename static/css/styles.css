@@ -553,3 +553,75 @@ p {
 .preload {
     background-image: url("/static/images/processing.svg");
 }
+
+/* --- Additional styles for structured LLM responses --- */
+
+/* Style the main answer container to manage spacing */
+/* .answer > div:first-child {
+    /* Existing styles are fine, but let's make sure the content has a clear container */
+/* } */
+
+/* Style headings within the answer */
+.answer h1, .answer h2, .answer h3, .answer h4, .answer h5, .answer h6 {
+    font-family: "Tietoevry-Regular", sans-serif; /* Use a consistent font */
+    font-weight: bold; /* Make headings bold for emphasis */
+    margin-top: 1.5rem; /* Add space above headings */
+    margin-bottom: 0.5rem; /* Add a little space below headings */
+}
+
+/* Specific size for different heading levels */
+.answer h1 { font-size: 1.8em; }
+.answer h2 { font-size: 1.5em; }
+.answer h3 { font-size: 1.2em; }
+.answer h4 { font-size: 1.1em; }
+
+/* Style paragraphs within the answer */
+.answer p {
+    margin-bottom: 1em; /* Add space below paragraphs */
+}
+
+/* Style lists (unordered and ordered) */
+.answer ul, .answer ol {
+    margin-bottom: 1em; /* Add space below the entire list */
+    padding-left: 2em; /* Indent the list items */
+}
+
+/* Style individual list items */
+.answer ul li, .answer ol li {
+    margin-bottom: 0.5em; /* Add space between list items */
+}
+
+/* Style blockquotes */
+.answer blockquote {
+    margin: 1em 0; /* Add margin around the blockquote */
+    padding-left: 1em; /* Add padding to the left */
+    border-left: 4px solid #DDDDDE; /* Create a visual "quote" line */
+    color: #64676A; /* Dim the text color slightly */
+    font-style: italic; /* Use italic font for quotes */
+}
+
+/* Style bold and italic text */
+.answer strong {
+    font-weight: bold;
+}
+
+.answer em {
+    font-style: italic;
+}
+
+/* Style code blocks */
+.answer pre {
+    background-color: #f4f4f4; /* A light gray background for code blocks */
+    padding: 1em;
+    border-radius: 8px;
+    overflow-x: auto; /* Allow horizontal scrolling for long code lines */
+    font-family: monospace; /* Use a monospace font for code */
+}
+
+/* Style inline code */
+.answer code {
+    background-color: #e8e8e8;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-family: monospace;
+}
