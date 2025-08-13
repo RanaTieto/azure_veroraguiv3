@@ -45,8 +45,9 @@ function addAnswerToChat(answer, feedbackId) {
     const newAnswer = document.createElement('div');
     newAnswer.classList.add('answer');
     const newAnswerContent = document.createElement('div');
+    newAnswer.classList.add('answer-content'); // Add a class for styling
     newAnswer.appendChild(newAnswerContent);
-    // newAnswer.innerHTML = answer;
+
     const feedbackIconsDiv = document.createElement('div');
     feedbackIconsDiv.classList.add('feedback_icons');
     const happyImg = createFeedbackImage(feedbackIconsDiv, 'Happy', feedbackId, 'Happy');
@@ -56,23 +57,22 @@ function addAnswerToChat(answer, feedbackId) {
 
     switch (selectedLanguage.toLowerCase()) {
         case "finnish":
-            happyImg.innerHTML = 'Hyvä vastaus'
-            sadImg.innerHTML = 'Huono vastaus'
+            happyImg.innerHTML = 'Hyvä vastaus';
+            sadImg.innerHTML = 'Huono vastaus';
             break;
         case "swedish":
-            happyImg.innerHTML = 'Bra svar'
-            sadImg.innerHTML = 'Dåligt svar'
+            happyImg.innerHTML = 'Bra svar';
+            sadImg.innerHTML = 'Dåligt svar';
             break;
         case "english":
-            happyImg.innerHTML = 'Good answer'
-            sadImg.innerHTML = 'Bad answer'
+            happyImg.innerHTML = 'Good answer';
+            sadImg.innerHTML = 'Bad answer';
             break;
         default:
-            happyImg.innerHTML = 'Good answer'
-            sadImg.innerHTML = 'Bad answer'
+            happyImg.innerHTML = 'Good answer';
+            sadImg.innerHTML = 'Bad answer';
             break;
     }
-
 
     happyImg.classList.add('happy_icon_unselected');
     sadImg.classList.add('sad_icon_unselected');
@@ -83,25 +83,29 @@ function addAnswerToChat(answer, feedbackId) {
     const chatMessagesDiv = document.getElementById('chat_messages');
     chatMessagesDiv.appendChild(newAnswer);
 
-
-    // newAnswer.innerText = answer
-
-    console.log(answer)
-
+    // Use marked.js to convert the Markdown string to HTML.
+    // We'll keep the character-by-character display but render the HTML at the end.
     let index = 0;
     const displayText = () => {
         if (index < answer.length) {
             newAnswerContent.innerHTML += answer[index];
             index++;
             setTimeout(displayText, 20);
-            newAnswer.scrollIntoView({behavior: 'smooth', block: 'end'});
+            newAnswer.scrollIntoView({ behavior: 'smooth', block: 'end' });
         } else {
-            newAnswer.appendChild(feedbackIconsDiv);
-            newAnswer.scrollIntoView({behavior: 'smooth', block: 'end'});
+            // Once the text is fully "typed out", parse the whole thing and update the content.
+            // This is the key change to get structured formatting.
+            const formattedAnswer = marked.parse(answer);
+            newAnswerContent.innerHTML = formattedAnswer;
+
+            // Wait a moment for the content to render before adding feedback buttons
+            setTimeout(() => {
+                newAnswer.appendChild(feedbackIconsDiv);
+                newAnswer.scrollIntoView({ behavior: 'smooth', block: 'end' });
+            }, 100);
         }
     };
     displayText();
-
 }
 
 function createFeedbackImage(parentDiv, alt, feedbackId, feedbackValue) {
