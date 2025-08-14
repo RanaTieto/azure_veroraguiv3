@@ -198,11 +198,13 @@ async function generateUniqueId() {
 }
 const SESSION_STORAGE_KEY = 'verofo_v3_sessionId';
 function getSessionId(forceNew) {
-  let sessionId = localStorage.getItem(SESSION_STORAGE_KEY);
+  // Use sessionStorage instead of localStorage
+  let sessionId = sessionStorage.getItem(SESSION_STORAGE_KEY);
   
   if (!sessionId || forceNew) {
-    sessionId = generateUniqueId(); // Using a simple JS function
-    localStorage.setItem(SESSION_STORAGE_KEY, sessionId);
+    sessionId = generateUniqueId();
+    // Store the new ID in sessionStorage
+    sessionStorage.setItem(SESSION_STORAGE_KEY, sessionId);
   }
   
   return sessionId;
