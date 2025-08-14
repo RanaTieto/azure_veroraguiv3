@@ -44,17 +44,18 @@ function addAnswerToChat(answer, feedbackId) {
     document.getElementById('clear_chat_button').style.display = 'block';
     const newAnswer = document.createElement('div');
     newAnswer.classList.add('answer');
+
+    // Create the container for the formatted text
     const newAnswerContent = document.createElement('div');
-    newAnswer.classList.add('answer-content'); // Add a class for styling
+    newAnswerContent.classList.add('answer-content');
     newAnswer.appendChild(newAnswerContent);
 
+    // Feedback icons and logic (this remains the same)
     const feedbackIconsDiv = document.createElement('div');
     feedbackIconsDiv.classList.add('feedback_icons');
     const happyImg = createFeedbackImage(feedbackIconsDiv, 'Happy', feedbackId, 'Happy');
     const sadImg = createFeedbackImage(feedbackIconsDiv, 'Sad', feedbackId, 'Sad');
-
     const selectedLanguage = document.querySelector('input[name="language"]:checked').value;
-
     switch (selectedLanguage.toLowerCase()) {
         case "finnish":
             happyImg.innerHTML = 'Hyvä vastaus';
@@ -73,39 +74,48 @@ function addAnswerToChat(answer, feedbackId) {
             sadImg.innerHTML = 'Bad answer';
             break;
     }
-
     happyImg.classList.add('happy_icon_unselected');
     sadImg.classList.add('sad_icon_unselected');
-
     feedbackIconsDiv.appendChild(happyImg);
     feedbackIconsDiv.appendChild(sadImg);
 
     const chatMessagesDiv = document.getElementById('chat_messages');
     chatMessagesDiv.appendChild(newAnswer);
 
-    // Use marked.js to convert the Markdown string to HTML.
-    // We'll keep the character-by-character display but render the HTML at the end.
+    // --- Key Change: Convert Markdown to HTML before starting the typing effect ---
+    const formattedHtml = marked.parse(answer);
+    
+    // Create a temporary element to hold the formatted HTML
+    // This allows us to access the text content and child nodes correctly
+    const tempElement = document.createElement('div');
+    tempElement.innerHTML = formattedHtml;
+
+    // This will hold the HTML as we build it with the typing effect
+    let typedHtml = '';
     let index = 0;
-    const displayText = () => {
-        if (index < answer.length) {
-            newAnswerContent.innerHTML += answer[index];
+    
+    // Speed of the typing effect (in milliseconds per character)
+    const typingSpeed = 10;
+
+    const typeHtml = () => {
+        if (index < formattedHtml.length) {
+            typedHtml += formattedHtml[index];
+            newAnswerContent.innerHTML = typedHtml;
             index++;
-            setTimeout(displayText, 20);
+            setTimeout(typeHtml, typingSpeed);
             newAnswer.scrollIntoView({ behavior: 'smooth', block: 'end' });
         } else {
-            // Once the text is fully "typed out", parse the whole thing and update the content.
-            // This is the key change to get structured formatting.
-            const formattedAnswer = marked.parse(answer);
-            newAnswerContent.innerHTML = formattedAnswer;
-
-            // Wait a moment for the content to render before adding feedback buttons
+            // Once the typing is complete, append the feedback icons
+            // We use a small delay to ensure the content has fully rendered
             setTimeout(() => {
                 newAnswer.appendChild(feedbackIconsDiv);
                 newAnswer.scrollIntoView({ behavior: 'smooth', block: 'end' });
             }, 100);
         }
     };
-    displayText();
+
+    // Start the typing effect
+    typeHtml();
 }
 
 function createFeedbackImage(parentDiv, alt, feedbackId, feedbackValue) {
@@ -180,6 +190,24 @@ async function sendFeedback(img, parentDiv, feedbackId, feedbackValue) {
 let sendQuestionRunning = false;
 let controller;
 
+async function generateUniqueId() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+const SESSION_STORAGE_KEY = 'verofo_v3_sessionId';
+function getSessionId(forceNew) {
+  let sessionId = localStorage.getItem(SESSION_STORAGE_KEY);
+  
+  if (!sessionId || forceNew) {
+    sessionId = generateUniqueId(); // Using a simple JS function
+    localStorage.setItem(SESSION_STORAGE_KEY, sessionId);
+  }
+  
+  return sessionId;
+}
+
 async function sendQuestion(question, language) {
 
     if (sendQuestionRunning) {
@@ -241,9 +269,12 @@ async function sendQuestion(question, language) {
         controller = new AbortController();
         const signal = controller.signal;
 
+        const currentSessionId = getSessionId();
+        console.log(currentSessionId);
         const data = {
             question: question,
-            language: language
+            language: language,
+            session_id: currentSessionId
         };
 
         let textarea;
@@ -254,6 +285,7 @@ async function sendQuestion(question, language) {
 
             // await new Promise(resolve => setTimeout(resolve, 10000));
             console.log('Question sent: ', question, ', ', language);
+            
             const response = await fetch(send_question_url, {
                 method: 'POST',
                 headers: {
